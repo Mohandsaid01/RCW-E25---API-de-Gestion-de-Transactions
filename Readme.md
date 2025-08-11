@@ -18,18 +18,15 @@ Autres : ESLint, Git
 Installation et exécution
 Cloner le dépôt :
 
-bash
-Copier
-Modifier
+
 git clone https://github.com/Mohandsaid01/RCW-E25---API-de-Gestion-de-Transactions.git
 cd RCW-E25---API-de-Gestion-de-Transactions
+
 Créer un fichier .env dans backend/ à partir de .env.example et y mettre les valeurs nécessaires.
 
 Lancer le projet avec Docker :
 
-css
-Copier
-Modifier
+
 docker compose up --build
 Accéder :
 
@@ -53,7 +50,7 @@ Déploiement facile via Docker RCW-E25 — Gestion de Transactions
  Lancer en local
 
 1) Backend (Docker)
-```bash
+
 docker compose down -v
 docker compose up --build
 
@@ -63,5 +60,6 @@ docker compose up --build
 cd web
 npm install
 npm run dev
+
  // avoir en place le fichier .env 
  VITE_API_URL=http://localhost:8010
