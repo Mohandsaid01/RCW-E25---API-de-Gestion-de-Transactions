@@ -63,3 +63,14 @@ npm run dev
 
  // avoir en place le fichier .env 
  VITE_API_URL=http://localhost:8010
+
+
+
+ ## Stack technique
+
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white&style=for-the-badge)
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB&style=for-the-badge)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white&style=for-the-badge)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white&style=for-the-badge)
+![API](https://img.shields.io/badge/API-000000?logo=swagger&logoColor=white&style=for-the-badge)
+
