@@ -1,0 +1,24 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Node / Vite
+web/node_modules/
+web/dist/
+web/.vite/
+
+# Docker
+db_data/
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Env & secrets
+.env
+*.env

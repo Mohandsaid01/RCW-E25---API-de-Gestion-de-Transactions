@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Moderne</title>
+    <style>
+        /* ====== Reset & Variables ====== */
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --surface: #ffffff;
+            --surface-glass: rgba(255, 255, 255, 0.8);
+            --background: #f8fafc;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius: 16px;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        #root {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ====== Navbar ====== */
+        .navbar {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 16px 24px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 32px;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .navbar a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .navbar__spacer {
+            margin-left: auto;
+        }
+
+        /* ====== Buttons ====== */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: 0;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn--danger {
+            background: #ef4444;
+        }
+
+        .btn--danger:hover {
+            background: #dc2626;
+        }
+
+        /* ====== Logo styles ====== */
+        .logo {
+            height: 6em;
+            padding: 1.5em;
+            will-change: filter;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            filter: drop-shadow(0 0 2em rgba(99, 102, 241, 0.6));
+            transform: scale(1.05);
+        }
+
+        .logo.react:hover {
+            filter: drop-shadow(0 0 2em #61dafbaa);
+        }
+
+        @keyframes logo-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            a:nth-of-type(2) .logo {
+                animation: logo-spin infinite 20s linear;
+            }
+        }
+
+        /* ====== Layout ====== */
+        .container {
+            padding: 0;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ====== Cards Dashboard ====== */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2em;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h4 {
+            margin: 0 0 16px;
+            font-size: 1.1em;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            margin: 8px 0;
+            font-size: 0.9em;
+        }
+
+        .metric {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--text);
+            margin: 16px 0;
+        }
+
+        .metric.success { color: #10b981; }
+        .metric.info { color: var(--primary); }
+        .metric.warning { color: #f59e0b; }
+
+        .change {
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .change.positive { color: #10b981; }
+        .change.negative { color: #ef4444; }
+
+        .total {
+            margin-top: 32px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        /* ====== Table ====== */
+        .table-container {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background: transparent;
+        }
+
+        .table th,
+        .table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .table th {
+            background: var(--background);
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        .table tr:hover {
+            background: var(--background);
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ====== Forms & Filters ====== */
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            align-items: end;
+            margin-bottom: 32px;
+            padding: 24px;
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+
+        .input,
+        .select {
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--text);
+            transition: all 0.2s ease;
+            font-size: 0.9em;
+        }
+
+        .input:focus,
+        .select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .label {
+            font-size: 0.75em;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* ====== Page Title ====== */
+        .page-title {
+            margin: 0 0 32px;
+            font-size: 2.5em;
+            font-weight: 800;
+            color: var(--text);
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* ====== Status badges ====== */
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .read-the-docs {
+            color: var(--text-muted);
+            margin-top: 2rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .read-the-docs:hover {
+            color: var(--text);
+        }
+
+        /* ====== Responsive ====== */
+        @media (max-width: 768px) {
+            #root {
+                padding: 1rem;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .filters {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-title {
+                font-size: 2em;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .navbar__spacer {
+                display: none;
+            }
+        }
+
+        /* ====== Subtle animations ====== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <a href="#" style="font-size: 1.2em; font-weight: 700; color: var(--primary);">Dashboard</a>
+            <a href="#">Accueil</a>
+            <a href="#">Projets</a>
+            <a href="#">Analytics</a>
+            <div class="navbar__spacer"></div>
+            <button class="btn">Se connecter</button>
+            <button class="btn btn--danger">Admin</button>
+        </nav>
+
+        <!-- Contenu principal -->
+        <div class="container">
+            <h1 class="page-title">Dashboard Moderne</h1>
+
+            <!-- Filtres -->
+            <div class="filters">
+                <div>
+                    <label class="label">Rechercher</label>
+                    <input class="input" type="text" placeholder="Tapez votre recherche..." />
+                </div>
+                <div>
+                    <label class="label">Catégorie</label>
+                    <select class="select">
+                        <option>Toutes les catégories</option>
+                        <option>Projets</option>
+                        <option>Clients</option>
+                        <option>Finances</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="label">Période</label>
+                    <select class="select">
+                        <option>Ce mois</option>
+                        <option>Cette semaine</option>
+                        <option>Aujourd'hui</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="cards">
+                <div class="card">
+                    <h4>💰 Revenus</h4>
+                    <p>Revenus totaux ce mois</p>
+                    <div class="metric success">€45,750</div>
+                    <p class="change positive">↗ +12% ce mois</p>
+                </div>
+                
+                <div class="card">
+                    <h4>👥 Clients</h4>
+                    <p>Nouveaux clients actifs</p>
+                    <div class="metric info">1,247</div>
+                    <p class="change positive">↗ +8% cette semaine</p>
+                </div>
+                
+                <div class="card">
+                    <h4>📊 Projets</h4>
+                    <p>Projets en cours</p>
+                    <div class="metric warning">23</div>
+                    <p class="change negative">↘ -2 projets terminés</p>
+                </div>
+            </div>
+
+            <div class="total">
+                <div style="font-size: 1.2em; margin-bottom: 8px; color: var(--text-muted);">Performance Globale</div>
+                <div style="font-size: 2.5em; font-weight: 800; color: var(--primary);">94.2%</div>
+                <div style="color: #10b981; margin-top: 8px;">Excellent niveau de performance !</div>
+            </div>
+
+            <!-- Tableau -->
+            <div class="table-container" style="margin-top: 32px;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Projet</th>
+                            <th>Client</th>
+                            <th>Statut</th>
+                            <th>Progression</th>
+                            <th>Budget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Site E-commerce</strong></td>
+                            <td>TechCorp Inc.</td>
+                            <td><span class="status success">En cours</span></td>
+                            <td>75%</td>
+                            <td><strong>€12,500</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Mobile</strong></td>
+                            <td>StartupXYZ</td>
+                            <td><span class="status warning">En attente</span></td>
+                            <td>30%</td>
+                            <td><strong>€25,000</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dashboard Analytics</strong></td>
+                            <td>DataViz Ltd</td>
+                            <td><span class="status info">Terminé</span></td>
+                            <td>100%</td>
+                            <td><strong>€8,750</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="read-the-docs">
+                Interface moderne et épurée pour une meilleure expérience utilisateur
+            </p>
+        </div>
+    </div>
+</body>
+</html>
