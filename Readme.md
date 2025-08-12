@@ -13,7 +13,7 @@ Conteneurisation : Docker & Docker Compose
 
 Authentification : JWT
 
-Autres : ESLint, Git
+Autres :  Git
 
 Installation et exécution
 Cloner le dépôt :
